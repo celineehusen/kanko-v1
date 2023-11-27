@@ -1,0 +1,26 @@
+.container {
+  padding: 24px;
+  padding-top: 0;
+  height: 100%;
+}
+
+ion-item {
+  margin-bottom: 16px;
+
+  input {
+    border: none; // for black border
+    outline: none; // for focus outline remove
+  }
+}
+
+ion-img {
+  height: 150px;
+}
+
+ion-header.md.header-md.header-collapse-none.hydrated {
+  box-shadow: none !important;
+  height: 100px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
