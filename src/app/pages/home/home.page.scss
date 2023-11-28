@@ -1,10 +1,16 @@
+* {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
 .container {
   padding: 24px;
   padding-top: 0;
   height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
-ion-item {
+.ion-padding-start {
   margin-bottom: 16px;
 
   input {
@@ -13,14 +19,139 @@ ion-item {
   }
 }
 
-ion-img {
+
+ion-toolbar ion-img {
   height: 150px;
 }
 
 ion-header.md.header-md.header-collapse-none.hydrated {
   box-shadow: none !important;
-  height: 100px !important;
+  height: 80px !important;
+  overflow: hidden;
   display: flex !important;
   align-items: center !important;
+}
+
+ion-item {
+  --highlight-color-focused: none;
+}
+
+
+.placement {
+  margin-right: 24px;
+  margin-bottom: 24px;
+
+  
+
+  ion-img.icon {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  h5 {
+    height: 16px;
+    display: flex;
+  }
+}
+
+ion-card {
+  width: 250px;
+  height: 444px;
+  margin-inline: 0 !important;
+  align-items: center;
+  display: flex;
+  background-color: #F2F2F2;
+
+  ion-card-content {
+    padding: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.row {
+  justify-content: space-between;
+}
+
+#ig-header {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F8F8F8;
+  border-color: #C7C7C7;
+  border-width: 1px;
+  width: 100%;
+
+  ion-img {
+    height: 25px;
+  }
+}
+
+.avatar {
+  height: 20px;
+  width: 20px;
+
+  ion-img {
+    border-radius: 50% !important;
+    overflow: hidden;
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 40px;
+
+  p {
+    font-size: 11px;
+    height: 11.5px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.action {
+  width: 100%;
+  height: 40px;
+  padding: 8px 10px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ion-img {
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+  }
+}
+
+.instagram {
+  border-color: #C7C7C7;
+  border-width: 1px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.description {
+  max-width: 100%;
+  padding: 10px;
+}
+
+.media ion-img{
+  max-width: 248px;
+  max-height: 248px;
+  overflow: hidden;
 }
 

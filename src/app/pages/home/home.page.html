@@ -1,62 +1,475 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="assets/kanko-logo.svg"></ion-img>
+    <ion-img src="assets/kanko-logo.svg" class="header"></ion-img>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="container">
-    <ion-row>
+    <ion-row class="row">
       <ion-col size="4">
-        <ion-item>
+        <div class="ion-padding-start">
+          <ion-label position="stacked">Ad name</ion-label>
+          <ion-input placeholder="Enter Ad name" value="New ad"></ion-input>
+        </div>
+
+        <!-- <ion-list>
+          <ion-radio-group value="single">
+            <div class="ion-padding-start">
+              <ion-radio value="single" labelPlacement="end"
+                >Single image or video</ion-radio
+              >
+              <ion-radio value="carousel" labelPlacement="end"
+                >Carousel</ion-radio
+              >
+            </div>
+          </ion-radio-group>
+        </ion-list> -->
+
+        <div class="ion-padding-start">
           <ion-label position="stacked">Primary text</ion-label>
-          <ion-input placeholder="Enter text"></ion-input>
-        </ion-item>
-        <ion-item>
+          <ion-input placeholder="Enter primary text"></ion-input>
+        </div>
+        <div class="ion-padding-start">
           <ion-label position="stacked">Headline</ion-label>
-          <ion-input placeholder="Enter text"></ion-input>
-        </ion-item>
-        <ion-item>
+          <ion-input
+            placeholder="Write a short headline"
+            [counter]="true"
+            maxlength="255"
+            [counterFormatter]="customCounterFormatter"
+          ></ion-input>
+        </div>
+        <div class="ion-padding-start">
           <ion-label position="stacked">Description</ion-label>
-          <ion-input placeholder="Enter text"></ion-input>
-        </ion-item>
+          <ion-textarea placeholder="Include additional details"></ion-textarea>
+        </div>
       </ion-col>
 
-      <ion-col size="8">
+      <ion-col size="7">
         <ion-row>
-          <ion-card size="1">
-            <ion-card-header>
-              <ion-card-title>Card Title</ion-card-title>
-              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
+          <ion-col>
+            <ion-row>
+              <ion-label>
+                <h1>Feeds</h1>
+              </ion-label>
+            </ion-row>
+            <ion-row>
+              <div class="placement">
+                <div class="d-flex align-items-center">
+                  <div class="pe-2">
+                    <ion-img src="assets/facebook.png" class="icon"></ion-img>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <h5 class="m-0 p-0" style="opacity: 0.6">Facebook</h5>
+                    <h4 class="m-0 p-0">Feeds</h4>
+                  </div>
+                </div>
 
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing
-              more, nothing less.
-            </ion-card-content>
-          </ion-card>
-          <ion-card size="1">
-            <ion-card-header>
-              <ion-card-title>Card Title</ion-card-title>
-              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
+                <ion-card size="1">
+                  <div class="instagram border">
+                    <div id="ig-header" class="border-bottom">
+                      <ion-img src="assets/instagram-logo-2.png"></ion-img>
+                    </div>
+                    <div class="profile">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar me-2">
+                          <ion-img src="assets/kanko-icon-blue.png"></ion-img>
+                        </div>
+                        <div>
+                          <p class="m-0">kanko</p>
+                          <p class="m-0" style="font-size: 10px">Sponsored</p>
+                        </div>
+                      </div>
+                      <ion-icon name="ellipsis-horizontal"></ion-icon>
+                    </div>
+                    <div class="media">
+                      <ion-img [src]="imgSource"></ion-img>
+                    </div>
+                    <div class="action">
+                      <div class="d-flex align-items-center">
+                        <ion-img src="assets/icon/icon-like.png"></ion-img>
+                        <ion-img src="assets/icon/icon-comment.png"></ion-img>
+                        <ion-img src="assets/icon/icon-share.png"></ion-img>
+                      </div>
+                      <div>
+                        <ion-img
+                          src="assets/icon/icon-bookmark.png"
+                          class="m-0"
+                        ></ion-img>
+                      </div>
+                    </div>
+                    <div class="w-100">
+                      <p
+                        class="description pt-0"
+                        style="font-size: 11px; line-height: 14px"
+                      >
+                        <span style="font-weight: bold"> kanko </span>
+                        {{( expand == false? description.slice(0,70) :
+                        description) + (expand == false && description.length >
+                        100 ? '... ' : '')}}
+                        <span
+                          style="opacity: 0.6; cursor: pointer"
+                          (click)="expand = true"
+                          >{{ expand == false && description.length > 100 ?
+                          'more' : '' }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </ion-card>
+              </div>
 
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing
-              more, nothing less.
-            </ion-card-content>
-          </ion-card>
-          <ion-card size="1">
-            <ion-card-header>
-              <ion-card-title>Card Title</ion-card-title>
-              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
+              <div class="placement">
+                <div class="d-flex align-items-center">
+                  <div class="pe-2">
+                    <ion-img src="assets/instagram.png" class="icon"></ion-img>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <h5 class="m-0 p-0" style="opacity: 0.6">Instagram</h5>
+                    <h4 class="m-0 p-0">Feed</h4>
+                  </div>
+                </div>
 
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing
-              more, nothing less.
-            </ion-card-content>
-          </ion-card>
+                <ion-card size="1">
+                  <div class="instagram border">
+                    <div id="ig-header" class="border-bottom">
+                      <ion-img src="assets/instagram-logo-2.png"></ion-img>
+                    </div>
+                    <div class="profile">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar me-2">
+                          <ion-img src="assets/kanko-icon-blue.png"></ion-img>
+                        </div>
+                        <div>
+                          <p class="m-0">kanko</p>
+                          <p class="m-0" style="font-size: 10px">Sponsored</p>
+                        </div>
+                      </div>
+
+                      <ion-icon name="ellipsis-horizontal"></ion-icon>
+                    </div>
+                    <div class="media">
+                      <ion-img [src]="imgSource"></ion-img>
+                    </div>
+                    <div class="action">
+                      <div class="d-flex align-items-center">
+                        <ion-img src="assets/icon/icon-like.png"></ion-img>
+                        <ion-img src="assets/icon/icon-comment.png"></ion-img>
+                        <ion-img src="assets/icon/icon-share.png"></ion-img>
+                      </div>
+                      <div>
+                        <ion-img
+                          src="assets/icon/icon-bookmark.png"
+                          class="m-0"
+                        ></ion-img>
+                      </div>
+                    </div>
+                    <div class="w-100">
+                      <p
+                        class="description pt-0"
+                        style="font-size: 11px; line-height: 14px"
+                      >
+                        <span style="font-weight: bold"> kanko </span>
+                        {{( expand == false? description.slice(0,70) :
+                        description) + (expand == false && description.length >
+                        100 ? '... ' : '')}}
+                        <span
+                          style="opacity: 0.6; cursor: pointer"
+                          (click)="expand = true"
+                          >{{ expand == false && description.length > 100 ?
+                          'more' : '' }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </ion-card>
+              </div>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-label>
+                <h1>Stories</h1>
+              </ion-label>
+            </ion-row>
+            <ion-row>
+              <div class="placement">
+                <div class="d-flex align-items-center">
+                  <div class="pe-2">
+                    <ion-img src="assets/facebook.png" class="icon"></ion-img>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <h5 class="m-0 p-0" style="opacity: 0.6">Facebook</h5>
+                    <h4 class="m-0 p-0">Feeds</h4>
+                  </div>
+                </div>
+
+                <ion-card size="1">
+                  <div class="instagram border">
+                    <div id="ig-header" class="border-bottom">
+                      <ion-img src="assets/instagram-logo-2.png"></ion-img>
+                    </div>
+                    <div class="profile">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar me-2">
+                          <ion-img src="assets/kanko-icon-blue.png"></ion-img>
+                        </div>
+                        <div>
+                          <p class="m-0">kanko</p>
+                          <p class="m-0" style="font-size: 10px">Sponsored</p>
+                        </div>
+                      </div>
+
+                      <ion-icon name="ellipsis-horizontal"></ion-icon>
+                    </div>
+                    <div class="media">
+                      <ion-img [src]="imgSource"></ion-img>
+                    </div>
+                    <div class="action">
+                      <div class="d-flex align-items-center">
+                        <ion-img src="assets/icon/icon-like.png"></ion-img>
+                        <ion-img src="assets/icon/icon-comment.png"></ion-img>
+                        <ion-img src="assets/icon/icon-share.png"></ion-img>
+                      </div>
+                      <div>
+                        <ion-img
+                          src="assets/icon/icon-bookmark.png"
+                          class="m-0"
+                        ></ion-img>
+                      </div>
+                    </div>
+                    <div class="w-100">
+                      <p
+                        class="description pt-0"
+                        style="font-size: 11px; line-height: 14px"
+                      >
+                        <span style="font-weight: bold"> kanko </span>
+                        {{( expand == false? description.slice(0,70) :
+                        description) + (expand == false && description.length >
+                        100 ? '... ' : '')}}
+                        <span
+                          style="opacity: 0.6; cursor: pointer"
+                          (click)="expand = true"
+                          >{{ expand == false && description.length > 100 ?
+                          'more' : '' }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </ion-card>
+              </div>
+
+              <div class="placement">
+                <div class="d-flex align-items-center">
+                  <div class="pe-2">
+                    <ion-img src="assets/instagram.png" class="icon"></ion-img>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <h5 class="m-0 p-0" style="opacity: 0.6">Instagram</h5>
+                    <h4 class="m-0 p-0">Feed</h4>
+                  </div>
+                </div>
+
+                <ion-card size="1">
+                  <div class="instagram border">
+                    <div id="ig-header" class="border-bottom">
+                      <ion-img src="assets/instagram-logo-2.png"></ion-img>
+                    </div>
+                    <div class="profile">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar me-2">
+                          <ion-img src="assets/kanko-icon-blue.png"></ion-img>
+                        </div>
+                        <div>
+                          <p class="m-0">kanko</p>
+                          <p class="m-0" style="font-size: 10px">Sponsored</p>
+                        </div>
+                      </div>
+
+                      <ion-icon name="ellipsis-horizontal"></ion-icon>
+                    </div>
+                    <div class="media">
+                      <ion-img [src]="imgSource"></ion-img>
+                    </div>
+                    <div class="action">
+                      <div class="d-flex align-items-center">
+                        <ion-img src="assets/icon/icon-like.png"></ion-img>
+                        <ion-img src="assets/icon/icon-comment.png"></ion-img>
+                        <ion-img src="assets/icon/icon-share.png"></ion-img>
+                      </div>
+                      <div>
+                        <ion-img
+                          src="assets/icon/icon-bookmark.png"
+                          class="m-0"
+                        ></ion-img>
+                      </div>
+                    </div>
+                    <div class="w-100">
+                      <p
+                        class="description pt-0"
+                        style="font-size: 11px; line-height: 14px"
+                      >
+                        <span style="font-weight: bold"> kanko </span>
+                        {{( expand == false? description.slice(0,70) :
+                        description) + (expand == false && description.length >
+                        100 ? '... ' : '')}}
+                        <span
+                          style="opacity: 0.6; cursor: pointer"
+                          (click)="expand = true"
+                          >{{ expand == false && description.length > 100 ?
+                          'more' : '' }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </ion-card>
+              </div>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-label>
+                <h1>Reels</h1>
+              </ion-label>
+            </ion-row>
+            <ion-row>
+              <div class="placement">
+                <div class="d-flex align-items-center">
+                  <div class="pe-2">
+                    <ion-img src="assets/facebook.png" class="icon"></ion-img>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <h5 class="m-0 p-0" style="opacity: 0.6">Facebook</h5>
+                    <h4 class="m-0 p-0">Feeds</h4>
+                  </div>
+                </div>
+
+                <ion-card size="1">
+                  <div class="instagram border">
+                    <div id="ig-header" class="border-bottom">
+                      <ion-img src="assets/instagram-logo-2.png"></ion-img>
+                    </div>
+                    <div class="profile">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar me-2">
+                          <ion-img src="assets/kanko-icon-blue.png"></ion-img>
+                        </div>
+                        <div>
+                          <p class="m-0">kanko</p>
+                          <p class="m-0" style="font-size: 10px">Sponsored</p>
+                        </div>
+                      </div>
+
+                      <ion-icon name="ellipsis-horizontal"></ion-icon>
+                    </div>
+                    <div class="media">
+                      <ion-img [src]="imgSource"></ion-img>
+                    </div>
+                    <div class="action">
+                      <div class="d-flex align-items-center">
+                        <ion-img src="assets/icon/icon-like.png"></ion-img>
+                        <ion-img src="assets/icon/icon-comment.png"></ion-img>
+                        <ion-img src="assets/icon/icon-share.png"></ion-img>
+                      </div>
+                      <div>
+                        <ion-img
+                          src="assets/icon/icon-bookmark.png"
+                          class="m-0"
+                        ></ion-img>
+                      </div>
+                    </div>
+                    <div class="w-100">
+                      <p
+                        class="description pt-0"
+                        style="font-size: 11px; line-height: 14px"
+                      >
+                        <span style="font-weight: bold"> kanko </span>
+                        {{( expand == false? description.slice(0,70) :
+                        description) + (expand == false && description.length >
+                        100 ? '... ' : '')}}
+                        <span
+                          style="opacity: 0.6; cursor: pointer"
+                          (click)="expand = true"
+                          >{{ expand == false && description.length > 100 ?
+                          'more' : '' }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </ion-card>
+              </div>
+
+              <div class="placement">
+                <div class="d-flex align-items-center">
+                  <div class="pe-2">
+                    <ion-img src="assets/instagram.png" class="icon"></ion-img>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <h5 class="m-0 p-0" style="opacity: 0.6">Instagram</h5>
+                    <h4 class="m-0 p-0">Feed</h4>
+                  </div>
+                </div>
+
+                <ion-card size="1">
+                  <div class="instagram border">
+                    <div id="ig-header" class="border-bottom">
+                      <ion-img src="assets/instagram-logo-2.png"></ion-img>
+                    </div>
+                    <div class="profile">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar me-2">
+                          <ion-img src="assets/kanko-icon-blue.png"></ion-img>
+                        </div>
+                        <div>
+                          <p class="m-0">kanko</p>
+                          <p class="m-0" style="font-size: 10px">Sponsored</p>
+                        </div>
+                      </div>
+
+                      <ion-icon name="ellipsis-horizontal"></ion-icon>
+                    </div>
+                    <div class="media">
+                      <ion-img [src]="imgSource"></ion-img>
+                    </div>
+                    <div class="action">
+                      <div class="d-flex align-items-center">
+                        <ion-img src="assets/icon/icon-like.png"></ion-img>
+                        <ion-img src="assets/icon/icon-comment.png"></ion-img>
+                        <ion-img src="assets/icon/icon-share.png"></ion-img>
+                      </div>
+                      <div>
+                        <ion-img
+                          src="assets/icon/icon-bookmark.png"
+                          class="m-0"
+                        ></ion-img>
+                      </div>
+                    </div>
+                    <div class="w-100">
+                      <p
+                        class="description pt-0"
+                        style="font-size: 11px; line-height: 14px"
+                      >
+                        <span style="font-weight: bold"> kanko </span>
+                        {{( expand == false? description.slice(0,70) :
+                        description) + (expand == false && description.length >
+                        100 ? '... ' : '')}}
+                        <span
+                          style="opacity: 0.6; cursor: pointer"
+                          (click)="expand = true"
+                          >{{ expand == false && description.length > 100 ?
+                          'more' : '' }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </ion-card>
+              </div>
+            </ion-row>
+          </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
