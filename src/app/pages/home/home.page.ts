@@ -11,7 +11,7 @@ export class HomePage implements OnInit {
   expandFb: Boolean = false;
   expandIg: Boolean = false;
   expandIgStory: Boolean = false;
-  imgSource: String = 'assets/hiring.jpeg';
+  imgSource: String = 'assets/poster.jpeg';
   description: String = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
   do eiusmod tempor incididunt ut labore et dolore magna

@@ -1,5 +1,6 @@
 * {
   font-family: Arial, Helvetica, sans-serif !important;
+  letter-spacing: normal;
 }
 
 .container {
@@ -8,6 +9,7 @@
   height: 100%;
   width: 100%;
   margin: 0;
+  max-width: 100% !important;
 }
 
 .ion-padding-start {
@@ -257,7 +259,114 @@ ion-card {
   ion-progress-bar {
     --background: #909090;
     --progress-background: white;
-    height: 1.3px;
-    border-radius: 50%;
+    height: 1.7px;
+  }
+
+  .media {
+    ion-img {
+      max-height: 250px;
+      max-width: 250px;
+    }
   }
 }
+
+.reels {
+  background-color: black;
+  width: 100%;
+  display: flex;
+  align-items: end;
+
+  p {
+    color: white;
+    margin: 0;
+  }
+
+  .profile {
+    padding: 0;
+  }
+
+  .media {
+    position: fixed;
+    ion-img {
+      max-height: 250px;
+      max-width: 250px;
+    }
+  }
+
+  .background-image {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    z-index: auto;
+  }
+
+  ion-button {
+    --background: white;
+    --box-shadow: none;
+    color: black;
+    --border-radius: 4px;
+    text-transform: none;
+    letter-spacing: normal;
+    width: 100%;
+    font-size: 11px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  ion-row {
+    width: 100% !important;
+  }
+
+  ion-col {
+    padding: 10px;
+  }
+
+  ion-icon {
+    color: white !important;
+    font-size: 14px;
+  }
+
+  .background-img {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: white;
+    opacity: 0.2;
+    border-radius: 50%;
+    position: fixed;
+  }
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+}
+
+.instagram-reels {
+  ion-icon {
+    font-size: 20px;
+  }
+
+  .icon {
+    margin-bottom: 16px;
+  }
+
+  ion-chip {
+    width: max-content;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 0;
+  }
+
+  [size="small"] {
+    height: 15px;
+  }
+}
+
