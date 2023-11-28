@@ -6,8 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  expand: Boolean = false;
-  imgSource: String = 'assets/poster.jpeg';
+  progressFb = 0;
+  progressIg = 0;
+  expandFb: Boolean = false;
+  expandIg: Boolean = false;
+  expandIgStory: Boolean = false;
+  imgSource: String = 'assets/hiring.jpeg';
   description: String = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
   do eiusmod tempor incididunt ut labore et dolore magna
@@ -23,7 +27,31 @@ export class HomePage implements OnInit {
     return `${maxLength - inputLength} characters remaining`;
   }
 
-  constructor() { }
+  constructor() {
+    setInterval(() => {
+      this.progressFb += 0.01;
+
+      // Reset the progress bar when it reaches 100%
+      // to continuously show the demo
+      if (this.progressFb > 1) {
+        setTimeout(() => {
+          this.progressFb = 0;
+        }, 1000);
+      }
+    }, 50);
+
+    setInterval(() => {
+      this.progressIg += 0.01;
+
+      // Reset the progress bar when it reaches 100%
+      // to continuously show the demo
+      if (this.progressIg > 1) {
+        setTimeout(() => {
+          this.progressIg = 0;
+        }, 1000);
+      }
+    }, 100);
+  }
 
   ngOnInit() {
   }
