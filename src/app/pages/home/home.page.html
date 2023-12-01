@@ -4,10 +4,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding custom-content">
   <div class="container">
-    <ion-row class="row">
-      <ion-col size="3">
+    <ion-row class="row" style="height: 100%">
+      <ion-col size="3" style="height: 100%; overflow-y: auto;">
         <div class="ion-padding-start">
           <ion-label position="stacked">Ad name</ion-label>
           <ion-input placeholder="Enter Ad name" value="New ad"></ion-input>
@@ -25,27 +25,108 @@
             </div>
           </ion-radio-group>
         </ion-list> -->
+        <div class="ion-padding-start mb-2">
+          <ion-label position="stacked">Media</ion-label>
+        </div>
+        <div class="ion-padding-start select-media mb-2">
+          <div
+            class="d-flex flex-end"
+            *ngIf="imgSource !== 'assets/kanko-poster.png'"
+          >
+            <ion-thumbnail class="me-2">
+              <img [src]="imgSource" />
+            </ion-thumbnail>
+          </div>
 
+          <ion-button>
+            <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+            <ion-label slot="end"
+              >{{ imgSource === 'assets/kanko-poster.png'? 'Upload Image' :
+              'Replace image'}}</ion-label
+            >
+            <input
+              type="file"
+              id="file-input"
+              (change)="fileUpload($event)"
+              accept="image/png, image/jpeg"
+            />
+          </ion-button>
+        </div>
+        <div class="ion-padding-start">
+          <ion-chip class="m-0" color="warning" *ngIf="warningMedia">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            <ion-label style="font-size: 13px">{{ warningMedia }}</ion-label>
+          </ion-chip>
+        </div>
         <div class="ion-padding-start">
           <ion-label position="stacked">Primary text</ion-label>
-          <ion-input placeholder="Enter primary text"></ion-input>
+          <ion-input
+            placeholder="Enter primary text"
+            [counter]="true"
+            maxlength="125"
+            [(ngModel)]="primaryText"
+            (ngModelChange)="validatePrimaryText()"
+          ></ion-input>
+        </div>
+        <div class="ion-padding-start">
+          <ion-chip class="m-0" color="warning" *ngIf="warningPrimaryText">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            <ion-label style="font-size: 13px"
+              >{{ warningPrimaryText }}</ion-label
+            >
+          </ion-chip>
         </div>
         <div class="ion-padding-start">
           <ion-label position="stacked">Headline</ion-label>
           <ion-input
             placeholder="Write a short headline"
             [counter]="true"
-            maxlength="255"
-            [counterFormatter]="customCounterFormatter"
+            maxlength="40"
+            [(ngModel)]="headline"
+            (ngModelChange)="validateHeadline()"
           ></ion-input>
         </div>
         <div class="ion-padding-start">
+          <ion-chip class="m-0" color="warning" *ngIf="warningHeadline">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            <ion-label style="font-size: 13px">{{ warningHeadline }}</ion-label>
+          </ion-chip>
+        </div>
+        <div class="ion-padding-start">
           <ion-label position="stacked">Description</ion-label>
-          <ion-textarea placeholder="Include additional details"></ion-textarea>
+          <ion-input
+            placeholder="Include additional details"
+            [counter]="true"
+            maxlength="27"
+            [(ngModel)]="description"
+            (ngModelChange)="validateDescription()"
+          ></ion-input>
+        </div>
+        <div class="ion-padding-start">
+          <ion-label position="stacked">Website URL</ion-label>
+          <ion-input
+            placeholder="http://www.example.com"
+            [(ngModel)]="websiteUrl"
+          ></ion-input>
+        </div>
+        <div class="ion-padding-start">
+          <ion-label position="stacked">Call to action (CTA)</ion-label>
+          <ion-select
+            slot="end"
+            placeholder="Select button"
+            label-placement="floating"
+            interface="popover"
+            class="has-value"
+            value="learn-more"
+          >
+            <ion-select-option value="learn-more">Learn more</ion-select-option>
+            <ion-select-option value="button">Button</ion-select-option>
+            <ion-select-option value="contact-us">Contact us</ion-select-option>
+          </ion-select>
         </div>
       </ion-col>
 
-      <ion-col size="8">
+      <ion-col size="8" style="height: 100%; overflow-y: auto;">
         <ion-row>
           <ion-col>
             <ion-row>
@@ -104,13 +185,13 @@
                         class="description m-0"
                         style="font-size: 0.75rem; line-height: 14px"
                       >
-                        {{( expandFb == false? description.slice(0,100) :
-                        description) + (expandFb == false && description.length
+                        {{( expandFb == false? primaryText.slice(0,100) :
+                        primaryText) + (expandFb == false && primaryText.length
                         > 100 ? '... ' : '')}}
                         <span
                           style="opacity: 0.6; cursor: pointer"
                           (click)="expandFb = true"
-                          >{{ expandFb == false && description.length > 100 ?
+                          >{{ expandFb == false && primaryText.length > 100 ?
                           'See more' : '' }}</span
                         >
                       </p>
@@ -118,20 +199,20 @@
                     <div class="media">
                       <ion-img [src]="imgSource"></ion-img>
                     </div>
-                    <div class="profile" style="height: 58px">
+                    <div class="profile">
                       <div>
                         <p
                           class="m-0"
                           style="
                             font-size: 0.75rem;
-                            height: 16.5px;
+                            height: auto;
                             font-weight: bold;
                           "
                         >
-                          Kanko
+                          {{ headline? headline : 'Kanko' }}
                         </p>
                         <p class="m-0" style="font-size: 0.65rem; opacity: 0.6">
-                          Organisation
+                          {{ description? description : 'Organisation' }}
                         </p>
                       </div>
                       <ion-button fill="outline" size="small"
@@ -192,6 +273,13 @@
                     <div class="media">
                       <ion-img [src]="imgSource"></ion-img>
                     </div>
+                    <div class="profile border-bottom" *ngIf="websiteUrl">
+                      <p class="m-0" style="font-weight: bold">Learn more</p>
+                      <ion-icon
+                        name="chevron-forward-outline"
+                        style="font-size: 14px"
+                      ></ion-icon>
+                    </div>
                     <div class="action">
                       <div class="d-flex align-items-center">
                         <ion-img src="assets/icon/icon-like.png"></ion-img>
@@ -211,13 +299,13 @@
                         style="font-size: 11px; line-height: 14px"
                       >
                         <span style="font-weight: bold"> kanko </span>
-                        {{( expandIg == false? description.slice(0,70) :
-                        description) + (expandIg == false && description.length
+                        {{( expandIg == false? primaryText.slice(0,70) :
+                        primaryText) + (expandIg == false && primaryText.length
                         > 70 ? '... ' : '')}}
                         <span
                           style="opacity: 0.6; cursor: pointer"
                           (click)="expandIg = true"
-                          >{{ expandIg == false && description.length > 70 ?
+                          >{{ expandIg == false && primaryText.length > 70 ?
                           'more' : '' }}</span
                         >
                       </p>
@@ -249,7 +337,7 @@
 
                 <ion-card size="1" style="align-items: normal">
                   <div class="story">
-                    <div style="min-height: 60px" class="w-100">
+                    <div class="w-100 story-header" style="background: none">
                       <div class="w-100 p-2 pb-0">
                         <ion-progress-bar
                           [value]="progressFb"
@@ -275,31 +363,38 @@
                         </div>
                       </div>
                     </div>
-                    <div class="media">
-                      <ion-img [src]="imgSource"></ion-img>
+                    <div class="background-image">
+                      <div class="media">
+                        <ion-img
+                          [src]="imgSource"
+                          style="max-height: 100%"
+                        ></ion-img>
+                      </div>
                     </div>
-                    <div class="w-100 p-3">
-                      <p
-                        class="description"
-                        style="font-size: 12px; line-height: 14px"
-                      >
-                        {{( description.slice(0,75) ) + ( description.length >
-                        75 ? '... ' : '')}}
-                        <span style="opacity: 0.6; text-decoration: underline"
-                          >{{ description.length > 75 ? 'More' : '' }}</span
+                    <div class="story-box" style="background: none">
+                      <div class="w-100 p-3">
+                        <p
+                          class="description"
+                          style="font-size: 12px; line-height: 14px"
                         >
-                      </p>
-                    </div>
-                    <div>
-                      <ion-button
-                        ><ion-icon
-                          name="link-outline"
-                          color="primary"
-                          style="font-size: 20px"
-                          class="me-1"
-                        ></ion-icon
-                        >Learn more</ion-button
-                      >
+                          {{( primaryText.slice(0,75) ) + ( primaryText.length >
+                          75 ? '... ' : '')}}
+                          <span style="opacity: 0.6; text-decoration: underline"
+                            >{{ primaryText.length > 75 ? 'More' : '' }}</span
+                          >
+                        </p>
+                      </div>
+                      <div>
+                        <ion-button
+                          ><ion-icon
+                            name="link-outline"
+                            color="primary"
+                            style="font-size: 20px"
+                            class="me-1"
+                          ></ion-icon
+                          >Learn more</ion-button
+                        >
+                      </div>
                     </div>
                   </div>
                 </ion-card>
@@ -318,7 +413,7 @@
 
                 <ion-card size="1" style="align-items: normal">
                   <div class="story">
-                    <div style="min-height: 40px" class="w-100">
+                    <div style="min-height: 40px" class="w-100 story-header">
                       <div class="w-100 p-2 pb-0">
                         <ion-progress-bar
                           [value]="progressIg"
@@ -344,31 +439,38 @@
                         </div>
                       </div>
                     </div>
-                    <div class="media">
-                      <ion-img [src]="imgSource"></ion-img>
+                    <div class="background-image">
+                      <div class="media">
+                        <ion-img
+                          [src]="imgSource"
+                          style="max-height: 100%"
+                        ></ion-img>
+                      </div>
                     </div>
-                    <div class="w-100 p-3">
-                      <p
-                        class="description"
-                        style="font-size: 12px; line-height: 14px"
-                      >
-                        {{( description.slice(0,60) ) + ( description.length >
-                        60 ? '... ' : '')}}
-                        <span style="opacity: 0.6; text-decoration: underline"
-                          >{{ description.length > 60 ? 'More' : '' }}</span
+                    <div class="story-box">
+                      <div class="w-100 p-3">
+                        <p
+                          class="description"
+                          style="font-size: 12px; line-height: 14px"
                         >
-                      </p>
-                    </div>
-                    <div id="ig-link">
-                      <ion-button
-                        ><ion-icon
-                          name="link-outline"
-                          color="primary"
-                          style="font-size: 24px; transform: rotate(-45deg)"
-                          class="me-1"
-                        ></ion-icon
-                        >LEARN MORE</ion-button
-                      >
+                          {{( primaryText.slice(0,60) ) + ( primaryText.length >
+                          60 ? '... ' : '')}}
+                          <span style="opacity: 0.6; text-decoration: underline"
+                            >{{ primaryText.length > 60 ? 'More' : '' }}</span
+                          >
+                        </p>
+                      </div>
+                      <div id="ig-link">
+                        <ion-button
+                          ><ion-icon
+                            name="link-outline"
+                            color="primary"
+                            style="font-size: 24px; transform: rotate(-45deg)"
+                            class="me-1"
+                          ></ion-icon
+                          >LEARN MORE</ion-button
+                        >
+                      </div>
                     </div>
                   </div>
                 </ion-card>
@@ -418,9 +520,9 @@
                             class="d-flex justify-content-between"
                             style="font-size: 11px; line-height: 14px"
                           >
-                            {{( description.slice(0,30) )}}
+                            {{( primaryText.slice(0,30) )}}
                             <span style="opacity: 0.6"
-                              >{{ description.length > 30 ? '...more' : ''
+                              >{{ primaryText.length > 30 ? '...more' : ''
                               }}</span
                             >
                           </p>
@@ -468,69 +570,103 @@
                         <ion-img [src]="imgSource"></ion-img>
                       </div>
                     </div>
-
-                    <ion-row>
-                      <ion-col
-                        size="10"
-                        class="d-flex flex-column align-self-end"
+                    <div
+                      style="
+                        width: 100%;
+                        height: 100%;
+                        justify-content: space-between;
+                        display: flex;
+                        flex-direction: column;
+                      "
+                    >
+                      <ion-row
+                        style="
+                          background: linear-gradient(
+                            to top,
+                            transparent 20%,
+                            black 150%
+                          );
+                          z-index: 2;
+                          height: 70px;
+                        "
                       >
-                        <div class="profile">
-                          <div class="d-flex align-items-center">
-                            <div class="avatar me-2">
-                              <ion-img
-                                src="assets/kanko-icon-blue.png"
-                              ></ion-img>
-                            </div>
-                            <div>
-                              <p class="m-0">kanko</p>
+                      </ion-row>
+
+                      <ion-row
+                        style="
+                          background: linear-gradient(
+                            to bottom,
+                            transparent 20%,
+                            black 150%
+                          );
+                          z-index: 2;
+                        "
+                      >
+                        <ion-col
+                          size="10"
+                          class="d-flex flex-column align-self-end"
+                        >
+                          <div class="profile">
+                            <div class="d-flex align-items-center">
+                              <div class="avatar me-2">
+                                <ion-img
+                                  src="assets/kanko-icon-blue.png"
+                                ></ion-img>
+                              </div>
+                              <div>
+                                <p class="m-0">kanko</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <ion-button size="small">Learn more</ion-button>
-                        <div class="w-100 mt-1 mb-2">
-                          <p
-                            style="font-size: 10px; line-height: 14px"
-                          >
-                            {{( description.slice(0,75) ) + ( description.length
-                            > 75 ? '... ' : '')}}
-                            <span
-                              style="opacity: 0.6;"
-                              >{{ description.length > 75 ? 'more' : '' }}</span
+                          <ion-button size="small">Learn more</ion-button>
+                          <div class="w-100 mt-1 mb-2">
+                            <p style="font-size: 10px; line-height: 14px">
+                              {{( primaryText.slice(0,65) ) + (
+                              primaryText.length > 65 ? '... ' : '')}}
+                              <span style="opacity: 0.6"
+                                >{{ primaryText.length > 65 ? 'more' : ''
+                                }}</span
+                              >
+                            </p>
+                          </div>
+                          <ion-chip color="light" size="small">
+                            <ion-icon
+                              name="megaphone"
+                              style="font-size: 8px"
+                            ></ion-icon>
+                            <ion-label style="font-size: 8px; color: white"
+                              >Sponsored</ion-label
                             >
-                          </p>
-                        </div>
-                        <ion-chip color="light" size="small">
-                          <ion-icon name="megaphone" style="font-size: 8px;"></ion-icon>
-                          <ion-label style="font-size: 8px; color: white">Sponsored</ion-label>
-                        </ion-chip>
-                      </ion-col>
-                      <ion-col class="d-flex flex-column ps-0 align-self-end">
-                        <div class="icon">
-                          <ion-icon
-                            name="heart-outline"
-                            style="font-size: 22px"
-                          ></ion-icon>
-                        </div>
-                        <div class="icon">
-                          <ion-icon
-                            name="chatbubble-outline"
-                            style="
-                              transform: scaleX(-1);
-                              -webkit-transform: scaleX(-1);
-                            "
-                          ></ion-icon>
-                        </div>
-                        <div class="icon">
-                          <ion-icon name="paper-plane-outline"></ion-icon>
-                        </div>
-                        <div class="icon mb-2">
-                          <ion-icon
-                            name="ellipsis-horizontal"
-                            style="font-size: 16px"
-                          ></ion-icon>
-                        </div>
-                      </ion-col>
-                    </ion-row>
+                          </ion-chip>
+                        </ion-col>
+                        <ion-col class="d-flex flex-column ps-0 align-self-end">
+                          <div class="icon">
+                            <ion-icon
+                              name="heart-outline"
+                              style="font-size: 22px"
+                            ></ion-icon>
+                          </div>
+                          <div class="icon">
+                            <ion-icon
+                              name="chatbubble-outline"
+                              style="
+                                transform: scaleX(-1);
+                                -webkit-transform: scaleX(-1);
+                              "
+                            ></ion-icon>
+                          </div>
+                          <div class="icon">
+                            <ion-icon name="paper-plane-outline"></ion-icon>
+                          </div>
+                          <div class="icon mb-2">
+                            <ion-icon
+                              name="ellipsis-horizontal"
+                              style="font-size: 16px"
+                            ></ion-icon>
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                    </div>
                   </div>
                 </ion-card>
               </div>

@@ -6,10 +6,15 @@
 .container {
   padding: 24px;
   padding-top: 0;
+  padding-bottom: 0;
   height: 100%;
   width: 100%;
   margin: 0;
   max-width: 100% !important;
+}
+
+ion-content::part(scroll) {
+  padding-bottom: 0 !important;
 }
 
 .ion-padding-start {
@@ -23,12 +28,12 @@
 
 
 ion-toolbar ion-img {
-  height: 150px;
+  height: 120px;
 }
 
 ion-header.md.header-md.header-collapse-none.hydrated {
   box-shadow: none !important;
-  height: 80px !important;
+  height: 50px !important;
   overflow: hidden;
   display: flex !important;
   align-items: center !important;
@@ -230,6 +235,7 @@ ion-card {
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
 
   p, ion-icon {
     color: white;
@@ -268,6 +274,25 @@ ion-card {
       max-width: 250px;
     }
   }
+
+  .story-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 32px;
+    min-width: 100%;
+    background: linear-gradient(to bottom, transparent 20%, black 200%);
+    z-index: 2;
+  }
+}
+
+.background-image {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  z-index: auto;
 }
 
 .reels {
@@ -288,19 +313,12 @@ ion-card {
   .media {
     position: fixed;
     ion-img {
-      max-height: 250px;
+      max-height: 100%;
       max-width: 250px;
     }
   }
 
-  .background-image {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    z-index: auto;
-  }
+  
 
   ion-button {
     --background: white;
@@ -347,6 +365,11 @@ ion-card {
     align-items: center;
     margin-bottom: 32px;
   }
+
+  .avatar {
+    height: 30px;
+    width: 30px;
+  }
 }
 
 .instagram-reels {
@@ -368,5 +391,56 @@ ion-card {
   [size="small"] {
     height: 15px;
   }
+
+  .media {
+    ion-img {
+      max-height: 100%;
+    }
+  }
 }
 
+ion-select {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+#file-input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  z-index: 999;
+}
+
+.select-media {
+  ion-button {
+    --box-shadow: none;
+    --background: #F2F2F2;
+    color: black;
+    font-family: 'Open Sans', sans-serif !important;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    --border-radius: 4px;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+}
+
+ion-select.custom-select {
+  width: 100%;
+  max-width: 100%;
+}
+
+ion-thumbnail {
+  --size: 100px;
+  --border-radius: 6px;
+}
+
+.story-header {
+  min-height: 60px;
+  z-index: 2;
+  background: linear-gradient(to top, transparent 20%, black 200%)
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -6,26 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  primaryText: String = '';
+  headline: String = '';
+  websiteUrl: String = '';
   progressFb = 0;
   progressIg = 0;
   expandFb: Boolean = false;
   expandIg: Boolean = false;
   expandIgStory: Boolean = false;
-  imgSource: String = 'assets/poster.jpeg';
-  description: String = `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-  do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-  ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  Duis aute irure dolor in reprehenderit in voluptate velit
-  esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-  occaecat cupidatat non proident, sunt in culpa qui officia
-  deserunt mollit anim id est laborum.
-  `;
-
-  customCounterFormatter(inputLength: number, maxLength: number) {
-    return `${maxLength - inputLength} characters remaining`;
-  }
+  imgSource: String = 'assets/kanko-poster.png';
+  description: String = '';
+  warningPrimaryText: String = '';
+  warningHeadline: String = '';
+  warningMedia: String = '';
 
   constructor() {
     setInterval(() => {
@@ -56,4 +49,37 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
+  fileUpload(e: any){
+    const file = e.target.files[0];
+    if (file){
+      this.imgSource = window.URL.createObjectURL(file)
+      if(file.type === "image/jpg" || file.type === "image/png"){
+        this.warningMedia = ''
+      } else {
+        this.warningMedia = 'Recommended file type: JPG or PNG'
+      }
+    }
+  }
+
+  validatePrimaryText(){
+    if(this.primaryText.length > 50) {
+      this.warningPrimaryText = 'Exceeded recommended character limit for Reels.'
+    } else {
+      this.warningPrimaryText = ''
+    }
+  }
+
+  validateHeadline(){
+    if(this.headline.length > 27) {
+      this.warningHeadline = 'Exceeded recommended character limit for Facebook Feeds.'
+    } else if (this.headline.length > 10) {
+      this.warningHeadline = 'Exceeded recommended character limit for Facebook Reels.'
+    } else {
+      this.warningHeadline = ''
+    }
+  }
+
+  validateDescription(){
+    
+  }
 }
