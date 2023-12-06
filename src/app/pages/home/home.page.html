@@ -7,24 +7,14 @@
 <ion-content [fullscreen]="true" class="ion-padding custom-content">
   <div class="container">
     <ion-row class="row" style="height: 100%">
-      <ion-col size="3" style="height: 100%; overflow-y: auto;">
+      <ion-col
+        size="4"
+        style="height: 100%; overflow-y: auto; padding-right: 32px"
+      >
         <div class="ion-padding-start">
           <ion-label position="stacked">Ad name</ion-label>
           <ion-input placeholder="Enter Ad name" value="New ad"></ion-input>
         </div>
-
-        <!-- <ion-list>
-          <ion-radio-group value="single">
-            <div class="ion-padding-start">
-              <ion-radio value="single" labelPlacement="end"
-                >Single image or video</ion-radio
-              >
-              <ion-radio value="carousel" labelPlacement="end"
-                >Carousel</ion-radio
-              >
-            </div>
-          </ion-radio-group>
-        </ion-list> -->
         <div class="ion-padding-start mb-2">
           <ion-label position="stacked">Media</ion-label>
         </div>
@@ -48,14 +38,35 @@
               type="file"
               id="file-input"
               (change)="fileUpload($event)"
-              accept="image/png, image/jpeg"
+              accept="image/png, image/jpg"
+              #coverFilesInput
             />
           </ion-button>
         </div>
         <div class="ion-padding-start">
-          <ion-chip class="m-0" color="warning" *ngIf="warningMedia">
-            <ion-icon name="alert-circle-outline"></ion-icon>
-            <ion-label style="font-size: 13px">{{ warningMedia }}</ion-label>
+          <ion-chip class="m-0 mb-2" color="danger" *ngIf="warningMedia">
+            <ion-icon name="alert-circle-outline" class="m-0"></ion-icon>
+            <ion-label style="font-size: 13px; width: 90%; padding-left: 8px"
+              >{{ warningMedia }}</ion-label
+            >
+          </ion-chip>
+          <ion-chip class="m-0 mb-2" color="danger" *ngIf="warningRatio1">
+            <ion-icon name="alert-circle-outline" class="m-0"></ion-icon>
+            <ion-label style="font-size: 13px; width: 90%; padding-left: 8px"
+              >{{ warningRatio1 }}</ion-label
+            >
+          </ion-chip>
+          <ion-chip class="m-0 mb-2" color="danger" *ngIf="warningRatio2">
+            <ion-icon name="alert-circle-outline" class="m-0"></ion-icon>
+            <ion-label style="font-size: 13px; width: 90%; padding-left: 8px"
+              >{{ warningRatio2 }}</ion-label
+            >
+          </ion-chip>
+          <ion-chip class="m-0 mb-2" color="danger" *ngIf="warningRatio3">
+            <ion-icon name="alert-circle-outline" class="m-0"></ion-icon>
+            <ion-label style="font-size: 13px; width: 90%; padding-left: 8px"
+              >{{ warningRatio3 }}</ion-label
+            >
           </ion-chip>
         </div>
         <div class="ion-padding-start">
@@ -69,9 +80,9 @@
           ></ion-input>
         </div>
         <div class="ion-padding-start">
-          <ion-chip class="m-0" color="warning" *ngIf="warningPrimaryText">
-            <ion-icon name="alert-circle-outline"></ion-icon>
-            <ion-label style="font-size: 13px"
+          <ion-chip class="m-0" color="danger" *ngIf="warningPrimaryText">
+            <ion-icon name="alert-circle-outline" class="m-0"></ion-icon>
+            <ion-label style="font-size: 13px; width: 90%; padding-left: 8px"
               >{{ warningPrimaryText }}</ion-label
             >
           </ion-chip>
@@ -87,9 +98,11 @@
           ></ion-input>
         </div>
         <div class="ion-padding-start">
-          <ion-chip class="m-0" color="warning" *ngIf="warningHeadline">
-            <ion-icon name="alert-circle-outline"></ion-icon>
-            <ion-label style="font-size: 13px">{{ warningHeadline }}</ion-label>
+          <ion-chip class="m-0" color="danger" *ngIf="warningHeadline">
+            <ion-icon name="alert-circle-outline" class="m-0"></ion-icon>
+            <ion-label style="font-size: 13px; width: 90%; padding-left: 8px"
+              >{{ warningHeadline }}</ion-label
+            >
           </ion-chip>
         </div>
         <div class="ion-padding-start">
@@ -99,7 +112,6 @@
             [counter]="true"
             maxlength="27"
             [(ngModel)]="description"
-            (ngModelChange)="validateDescription()"
           ></ion-input>
         </div>
         <div class="ion-padding-start">
@@ -126,7 +138,7 @@
         </div>
       </ion-col>
 
-      <ion-col size="8" style="height: 100%; overflow-y: auto;">
+      <ion-col size="7" style="height: 100%; overflow-y: auto">
         <ion-row>
           <ion-col>
             <ion-row>
